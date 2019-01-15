@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "df7f82b0b38b9040c686c15924df16da",
+    "content-hash": "5a7df3e694d967046ac9a2ac1b1fde0a",
     "packages": [
         {
             "name": "acquia/http-hmac-php",
@@ -461,115 +461,138 @@
             "time": "2015-05-04T20:22:00+00:00"
         },
         {
-            "name": "virgil/crypto",
-            "version": "v5.1.0",
+            "name": "simplito/bigint-wrapper-php",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/VirgilSecurity/crypto-php.git",
-                "reference": "438932ffbd4ef2a31ab769b3b8c282464dfb90bf"
+                "url": "https://github.com/simplito/bigint-wrapper-php.git",
+                "reference": "cf21ec76d33f103add487b3eadbd9f5033a25930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VirgilSecurity/crypto-php/zipball/438932ffbd4ef2a31ab769b3b8c282464dfb90bf",
-                "reference": "438932ffbd4ef2a31ab769b3b8c282464dfb90bf",
+                "url": "https://api.github.com/repos/simplito/bigint-wrapper-php/zipball/cf21ec76d33f103add487b3eadbd9f5033a25930",
+                "reference": "cf21ec76d33f103add487b3eadbd9f5033a25930",
                 "shasum": ""
-            },
-            "require": {
-                "ext-virgil_crypto_php": "*",
-                "php": ">=5.6",
-                "virgil/crypto-api": "^5.0"
-            },
-            "provide": {
-                "virgil/crypto-api-implementation": "v5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=5.6"
-            },
-            "type": "standalone",
-            "autoload": {
-                "files": [
-                    "virgil_crypto_php.php"
-                ],
-                "psr-4": {
-                    "Virgil\\CryptoImpl\\": "Virgil/CryptoImpl/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Virgil Security, Inc",
-                    "email": "support@virgilsecurity.com",
-                    "homepage": "https://virgilsecurity.com/"
-                }
-            ],
-            "description": "Virgil is a stack of security libraries (ECIES with Crypto Agility wrapped in Virgil Cryptogram) and all the necessary infrastructure to enable seamless, end-to-end encryption for any application, platform or device. See below for currently available languages and platforms. Get in touch with us to get preview access to our key infrastructure.",
-            "homepage": "http://virgilsecurity.com",
-            "keywords": [
-                "Authentication",
-                "ECIES",
-                "PFS",
-                "Passwordless",
-                "Perfect Forward Secrecy",
-                "Virgil.Keys",
-                "Virgil.Pass",
-                "cross",
-                "cryptography",
-                "decryption",
-                "elliptic",
-                "encryption",
-                "end-to-end",
-                "platform",
-                "security",
-                "verification",
-                "virgil"
-            ],
-            "time": "2018-11-08T10:14:07+00:00"
-        },
-        {
-            "name": "virgil/crypto-api",
-            "version": "5.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/VirgilSecurity/virgil-cryptoapi-php.git",
-                "reference": "797dfa266aec50e1e29b0a2a923124e23a57b0f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/VirgilSecurity/virgil-cryptoapi-php/zipball/797dfa266aec50e1e29b0a2a923124e23a57b0f0",
-                "reference": "797dfa266aec50e1e29b0a2a923124e23a57b0f0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Virgil\\CryptoApi\\": "Virgil/CryptoApi/"
+                    "BI\\": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Virgil Security, Inc",
-                    "email": "support@virgilsecurity.com",
-                    "homepage": "http://virgilsecurity.com"
+                    "name": "Simplito Team",
+                    "email": "s.smyczynski@simplito.com",
+                    "homepage": "https://simplito.com"
                 }
             ],
-            "description": "Virgil crypto API contains a bunch of common cipher interfaces",
-            "homepage": "http://virgilsecurity.com",
-            "keywords": [
-                "cipher",
-                "crypto api",
-                "virgil crypto"
+            "description": "Common interface for php_gmp and php_bcmath modules",
+            "time": "2018-02-27T12:38:08+00:00"
+        },
+        {
+            "name": "simplito/bn-php",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplito/bn-php.git",
+                "reference": "e852fcd27e4acbc32459606d7606e45a85e42465"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simplito/bn-php/zipball/e852fcd27e4acbc32459606d7606e45a85e42465",
+                "reference": "e852fcd27e4acbc32459606d7606e45a85e42465",
+                "shasum": ""
+            },
+            "require": {
+                "simplito/bigint-wrapper-php": "~1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BN\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
             ],
-            "time": "2018-05-14T06:20:45+00:00"
+            "authors": [
+                {
+                    "name": "Simplito Team",
+                    "email": "s.smyczynski@simplito.com",
+                    "homepage": "https://simplito.com"
+                }
+            ],
+            "description": "Big number implementation compatible with bn.js",
+            "time": "2018-04-12T11:07:43+00:00"
+        },
+        {
+            "name": "simplito/elliptic-php",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplito/elliptic-php.git",
+                "reference": "be6b14c6999a5c328457d571f643ef8b3f3f82d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simplito/elliptic-php/zipball/be6b14c6999a5c328457d571f643ef8b3f3f82d0",
+                "reference": "be6b14c6999a5c328457d571f643ef8b3f3f82d0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gmp": "*",
+                "simplito/bn-php": "~1.1.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "@dev",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Elliptic\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simplito Team",
+                    "email": "s.smyczynski@simplito.com",
+                    "homepage": "https://simplito.com"
+                }
+            ],
+            "description": "Fast elliptic curve cryptography",
+            "homepage": "https://github.com/simplito/elliptic-php",
+            "keywords": [
+                "Curve25519",
+                "ECDSA",
+                "Ed25519",
+                "EdDSA",
+                "cryptography",
+                "curve",
+                "ecc",
+                "ecdh",
+                "elliptic",
+                "nistp192",
+                "nistp224",
+                "nistp256",
+                "nistp384",
+                "nistp521",
+                "secp256k1"
+            ],
+            "time": "2018-05-11T07:40:56+00:00"
         }
     ],
     "packages-dev": [
@@ -2155,6 +2178,117 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-02-02T13:44:19+00:00"
+        },
+        {
+            "name": "virgil/crypto",
+            "version": "v5.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VirgilSecurity/crypto-php.git",
+                "reference": "438932ffbd4ef2a31ab769b3b8c282464dfb90bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VirgilSecurity/crypto-php/zipball/438932ffbd4ef2a31ab769b3b8c282464dfb90bf",
+                "reference": "438932ffbd4ef2a31ab769b3b8c282464dfb90bf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-virgil_crypto_php": "*",
+                "php": ">=5.6",
+                "virgil/crypto-api": "^5.0"
+            },
+            "provide": {
+                "virgil/crypto-api-implementation": "v5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=5.6"
+            },
+            "type": "standalone",
+            "autoload": {
+                "files": [
+                    "virgil_crypto_php.php"
+                ],
+                "psr-4": {
+                    "Virgil\\CryptoImpl\\": "Virgil/CryptoImpl/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Virgil Security, Inc",
+                    "email": "support@virgilsecurity.com",
+                    "homepage": "https://virgilsecurity.com/"
+                }
+            ],
+            "description": "Virgil is a stack of security libraries (ECIES with Crypto Agility wrapped in Virgil Cryptogram) and all the necessary infrastructure to enable seamless, end-to-end encryption for any application, platform or device. See below for currently available languages and platforms. Get in touch with us to get preview access to our key infrastructure.",
+            "homepage": "http://virgilsecurity.com",
+            "keywords": [
+                "Authentication",
+                "ECIES",
+                "PFS",
+                "Passwordless",
+                "Perfect Forward Secrecy",
+                "Virgil.Keys",
+                "Virgil.Pass",
+                "cross",
+                "cryptography",
+                "decryption",
+                "elliptic",
+                "encryption",
+                "end-to-end",
+                "platform",
+                "security",
+                "verification",
+                "virgil"
+            ],
+            "time": "2018-11-08T10:14:07+00:00"
+        },
+        {
+            "name": "virgil/crypto-api",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VirgilSecurity/virgil-cryptoapi-php.git",
+                "reference": "797dfa266aec50e1e29b0a2a923124e23a57b0f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VirgilSecurity/virgil-cryptoapi-php/zipball/797dfa266aec50e1e29b0a2a923124e23a57b0f0",
+                "reference": "797dfa266aec50e1e29b0a2a923124e23a57b0f0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Virgil\\CryptoApi\\": "Virgil/CryptoApi/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Virgil Security, Inc",
+                    "email": "support@virgilsecurity.com",
+                    "homepage": "http://virgilsecurity.com"
+                }
+            ],
+            "description": "Virgil crypto API contains a bunch of common cipher interfaces",
+            "homepage": "http://virgilsecurity.com",
+            "keywords": [
+                "cipher",
+                "crypto api",
+                "virgil crypto"
+            ],
+            "time": "2018-05-14T06:20:45+00:00"
         }
     ],
     "aliases": [],

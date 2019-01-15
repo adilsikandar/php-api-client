@@ -2,16 +2,16 @@
 namespace Mifiel;
 
 class PBE {
-  private $numIterations = 1000;
-  private $digestAlgorithm = 'sha256';
+  private $num_iterations = 1000;
+  private $digest_algorithm = 'sha256';
 
   function __construct($params = null) {
     if (is_array($params)) {
       if (array_key_exists('iterations', $params)) {
-        $this->numIterations = $params['iterations'];
+        $this->num_iterations = $params['iterations'];
       }
       if (array_key_exists('digestAlgorithm', $params)) {
-        $this->digestAlgorithm = $params['digestAlgorithm'];
+        $this->digest_algorithm = $params['digestAlgorithm'];
       }
     } else if ($params !== null) {
       throw new \InvalidArgumentException('PBE construct expects an (object)[] of params');
@@ -19,19 +19,19 @@ class PBE {
   }
 
   public function setIterations($num) {
-    $this->numIterations = $num;
+    $this->num_iterations = $num;
   }
 
   public function getIterations() {
-    return $this->numIterations;
+    return $this->num_iterations;
   }
 
   public function setDigestAlgorithm($alg) {
-    $this->digestAlgorithm = $alg;
+    $this->digest_algorithm = $alg;
   }
 
   public function getDigestAlgorithm() {
-    return $this->digestAlgorithm;
+    return $this->digest_algorithm;
   }
 
   public static function randomPassword($length = 32) {
@@ -51,6 +51,6 @@ class PBE {
     if ($size > 1000) {
       throw new \InvalidArgumentException('key lenght/size requested is too long');
     }
-    return hash_pbkdf2($this->digestAlgorithm, $password, $salt, $this->numIterations, $size * 2);
+    return hash_pbkdf2($this->digest_algorithm, $password, $salt, $this->num_iterations, $size * 2);
   }
 }

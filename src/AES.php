@@ -2,12 +2,12 @@
 namespace Mifiel;
 
 class AES {
-  private $blockSize = 192;
+  private $block_size = 192;
 
   function __construct($params = null) {
     if (is_array($params)) {
       if (array_key_exists('blockSize', $params)) {
-        $this->blockSize = $params['blockSize'];
+        $this->block_size = $params['blockSize'];
       }
     } else if ($params !== null) {
       throw new \InvalidArgumentException('AES construct expects an (object)[] of params');
@@ -15,15 +15,15 @@ class AES {
   }
 
   public function setBlockSize($size = 192) {
-    $this->blockSize = $size;
+    $this->block_size = $size;
   }
 
   public function getBlockSize() {
-    return $this->blockSize;
+    return $this->block_size;
   }
 
   public function getAlgorithm() {
-    return 'AES-'.$this->blockSize.'-CBC';
+    return 'AES-'.$this->block_size.'-CBC';
   }
 
   public static function randomIV($size = 16) {
@@ -40,20 +40,20 @@ class AES {
     if (mb_detect_encoding($iv) !== false) {
       $iv = hex2bin($iv);
     }
-    $encryptedData = openssl_encrypt($data, $this->getAlgorithm(), $password, true, $iv);
+    $encrypted_data = openssl_encrypt($data, $this->getAlgorithm(), $password, true, $iv);
     return [
-      'encrypted_data' => bin2hex($encryptedData),
+      'encrypted_data' => bin2hex($encrypted_data),
       'iv' => $iv,
     ];
   }
 
-  public function decrypt($encryptedData, $password, $iv) {
-    if (mb_detect_encoding($encryptedData) !== false) {
-      $encryptedData = hex2bin($encryptedData);
+  public function decrypt($encrypted_data, $password, $iv) {
+    if (mb_detect_encoding($encrypted_data) !== false) {
+      $encrypted_data = hex2bin($encrypted_data);
     }
     if (mb_detect_encoding($iv) !== false) {
       $iv = hex2bin($iv);
     }
-    return openssl_decrypt($encryptedData, $this->getAlgorithm(), $password, true, $iv);
+    return openssl_decrypt($encrypted_data, $this->getAlgorithm(), $password, true, $iv);
   }
 }
