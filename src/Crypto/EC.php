@@ -1,5 +1,5 @@
 <?php
-namespace Mifiel;
+namespace Mifiel\Crypto;
 
 use Elliptic\EC as ECC;
 

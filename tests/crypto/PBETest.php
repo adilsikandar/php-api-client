@@ -1,7 +1,7 @@
 <?php
 namespace Mifiel\Tests;
 
-use Mifiel\PBE;
+use Mifiel\Crypto\PBE;
 
 class PBETest extends \PHPUnit_Framework_TestCase {
   private $defaultNumIterations = 1000;

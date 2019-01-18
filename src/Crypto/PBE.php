@@ -1,5 +1,5 @@
 <?php
-namespace Mifiel;
+namespace Mifiel\Crypto;
 
 class PBE {
   private $num_iterations = 1000;
@@ -50,6 +50,9 @@ class PBE {
   public function getDerivedKey($password, $salt, $size) {
     if ($size > 1000) {
       throw new \InvalidArgumentException('key lenght/size requested is too long');
+    }
+    if (ctype_xdigit($salt)) {
+      $salt = hex2bin($salt);
     }
     return hash_pbkdf2($this->digest_algorithm, $password, $salt, $this->num_iterations, $size * 2);
   }

@@ -1,7 +1,7 @@
 <?php
 namespace Mifiel\Tests;
 
-use Mifiel\EC;
+use Mifiel\Crypto\EC;
 
 class ECTest extends \PHPUnit_Framework_TestCase {
   public function testEncryptDecrypt() {

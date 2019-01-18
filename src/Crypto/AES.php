@@ -1,5 +1,5 @@
 <?php
-namespace Mifiel;
+namespace Mifiel\Crypto;
 
 class AES {
   private $block_size = 192;
@@ -48,10 +48,10 @@ class AES {
   }
 
   public function decrypt($encrypted_data, $password, $iv) {
-    if (mb_detect_encoding($encrypted_data) !== false) {
+    if (ctype_xdigit($encrypted_data)) {
       $encrypted_data = hex2bin($encrypted_data);
     }
-    if (mb_detect_encoding($iv) !== false) {
+    if (ctype_xdigit($iv)) {
       $iv = hex2bin($iv);
     }
     return openssl_decrypt($encrypted_data, $this->getAlgorithm(), $password, true, $iv);

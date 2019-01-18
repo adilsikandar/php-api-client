@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7df3e694d967046ac9a2ac1b1fde0a",
+    "content-hash": "d76ab982598345d9b93b1bc0bb221eba",
     "packages": [
         {
             "name": "acquia/http-hmac-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "fgrosse/phpasn1",
-            "version": "1.5.3",
+            "version": "v1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fgrosse/PHPASN1.git",
-                "reference": "40244500384f8b96f5952076f3e05fb56a815c55"
+                "reference": "4fe0afb91b4ce3ca08c63d9cf31cec1150828e97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fgrosse/PHPASN1/zipball/40244500384f8b96f5952076f3e05fb56a815c55",
-                "reference": "40244500384f8b96f5952076f3e05fb56a815c55",
+                "url": "https://api.github.com/repos/fgrosse/PHPASN1/zipball/4fe0afb91b4ce3ca08c63d9cf31cec1150828e97",
+                "reference": "4fe0afb91b4ce3ca08c63d9cf31cec1150828e97",
                 "shasum": ""
             },
             "require": {
@@ -75,8 +75,8 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "satooshi/php-coveralls": "dev-master"
+                "php-coveralls/php-coveralls": "^1.0|^2.0",
+                "phpunit/phpunit": "~4.5"
             },
             "suggest": {
                 "php-curl": "For loading OID information from the web if they have not bee defined statically"
@@ -123,7 +123,7 @@
                 "x509",
                 "x690"
             ],
-            "time": "2017-12-17T10:18:20+00:00"
+            "time": "2018-12-02T01:31:42+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

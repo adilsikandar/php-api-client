@@ -1,7 +1,7 @@
 <?php
 namespace Mifiel\Tests;
 
-use Mifiel\AES;
+use Mifiel\Crypto\AES;
 
 class AESTest extends \PHPUnit_Framework_TestCase {
   private $defaultBlockSize = 192;
