@@ -1,12 +1,12 @@
 <?php
 namespace Mifiel\Crypto;
 
-use FG\ASN1\Object;
-use FG\ASN1\Universal\Integer;
-use FG\ASN1\Universal\ObjectIdentifier;
-use FG\ASN1\Universal\OctetString;
-use FG\ASN1\Universal\Sequence;
-use FG\ASN1\UnknownObject;
+use FG\ASN1\Object as ASNObject,
+    FG\ASN1\Universal\Integer as ASNInteger,
+    FG\ASN1\Universal\ObjectIdentifier,
+    FG\ASN1\Universal\OctetString,
+    FG\ASN1\Universal\Sequence,
+    FG\ASN1\UnknownObject;
 
 class PKCS5 {
   const PKCS5_OID = '1.2.840.113549.1.5.13';
@@ -81,7 +81,7 @@ class PKCS5 {
       $binary_data = hex2bin($binary_data);
     }
     try {
-      $asn_object = Object::fromBinary($binary_data);
+      $asn_object = ASNObject::fromBinary($binary_data);
       $this->validateLoadedASN1($asn_object);
       $asnL1 = $asn_object[0][1][0];
       $asnL2 = $asn_object[0][1][1];
@@ -105,7 +105,7 @@ class PKCS5 {
             new ObjectIdentifier(self::PBKDF2_OID),
             new Sequence(
               new OctetString($this->salt),
-              new Integer($this->iterations),
+              new ASNInteger($this->iterations),
               new Sequence(
                 new ObjectIdentifier(self::HMAC_SHA256_OID)
               )
