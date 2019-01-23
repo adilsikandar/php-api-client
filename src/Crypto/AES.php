@@ -6,8 +6,8 @@ class AES {
 
   function __construct($params = null) {
     if (is_array($params)) {
-      if (array_key_exists('blockSize', $params)) {
-        $this->block_size = $params['blockSize'];
+      if (array_key_exists('block_size', $params)) {
+        $this->block_size = $params['block_size'];
       }
     } else if ($params !== null) {
       throw new \InvalidArgumentException('AES construct expects an (object)[] of params');
@@ -33,27 +33,48 @@ class AES {
     return openssl_random_pseudo_bytes($size, $safe);
   }
 
-  public function encrypt($data, $password, $iv) {
-    if ($iv === null) {
-      $iv = $this->randomIV();
+  public function encrypt($params) {
+    $error = $this->validateEncryptDecryptParams($params, 'encrypt');
+    if (isset($error)) {
+      throw $error;
     }
-    if (mb_detect_encoding($iv) !== false) {
+    $iv = empty($params['iv']) ? $iv = self::randomIV() : $params['iv'];
+    $data = $params['data'];
+    $password = $params['password'];
+    if (ctype_xdigit($iv)) {
       $iv = hex2bin($iv);
     }
     $encrypted_data = openssl_encrypt($data, $this->getAlgorithm(), $password, true, $iv);
     return [
+      'iv' => bin2hex($iv),
       'encrypted_data' => bin2hex($encrypted_data),
-      'iv' => $iv,
     ];
   }
 
-  public function decrypt($encrypted_data, $password, $iv) {
-    if (ctype_xdigit($encrypted_data)) {
-      $encrypted_data = hex2bin($encrypted_data);
+  public function decrypt($params) {
+    $error = $this->validateEncryptDecryptParams($params, 'decrypt');
+    if (isset($error)) {
+      throw $error;
+    }
+    $iv = $params['iv'];
+    $data = $params['data'];
+    $password = $params['password'];
+    if (ctype_xdigit($data)) {
+      $data = hex2bin($data);
     }
     if (ctype_xdigit($iv)) {
       $iv = hex2bin($iv);
     }
-    return openssl_decrypt($encrypted_data, $this->getAlgorithm(), $password, true, $iv);
+    return openssl_decrypt($data, $this->getAlgorithm(), $password, true, $iv);
+  }
+
+  private function validateEncryptDecryptParams($params, $caller) {
+    if ($caller === 'decrypt' && empty($params['iv'])) {
+      return new \InvalidArgumentException('AES->' . $caller . ' : [iv] is required in parameters.');
+    } else if (empty($params['data'])) {
+      return new \InvalidArgumentException('AES->' . $caller . ' : [data] is required in parameters.');
+    } else if (empty($params['password'])) {
+      return new \InvalidArgumentException('AES->' . $caller . ' : [password] is required in parameters.');
+    }
   }
 }

@@ -22,6 +22,19 @@ class PKCS5 {
   private $iterations;
   private $cipher_data;
 
+  function __construct($params = null) {
+    if (is_array($params)) {
+      $valid_attrs = [ 'key_size', 'iv', 'salt', 'iterations', 'cipher_data' ];
+      foreach ($params as $attr => $value) {
+        if (in_array($attr, $valid_attrs)) {
+          $this->$attr = $value;
+        }
+      }
+    } else if ($params !== null) {
+      throw new \InvalidArgumentException('PBE construct expects an (object)[] of params');
+    }
+  }
+
   public function __get($property) {
     if (property_exists($this, $property)) {
         return $this->$property;
@@ -37,7 +50,7 @@ class PKCS5 {
   }
 
   public static function getCipherId($key_size) {
-    if ($key_size) {
+    if (empty($key_size)) {
       throw new \InvalidArgumentException('PKCS5->getCipherId : $key_size is required and must be a supported key length.');
     }
     switch ($key_size) {
@@ -83,7 +96,7 @@ class PKCS5 {
   }
 
   public function ASN1() {
-    $this->validateASN1Attrs();
+    $this->validateASN1Gen();
     $seq = new Sequence(
       new Sequence(
         new ObjectIdentifier(self::PKCS5_OID),

@@ -13,7 +13,7 @@ abstract class BaseObject {
   }
 
   public static function all() {
-    self::validateResuorceName();
+    self::validateResourceName();
     $response = ApiClient::get(static::$resourceName);
     $response_body_arr = json_decode($response->getBody());
     $return = array();
@@ -24,20 +24,20 @@ abstract class BaseObject {
   }
 
   public static function find($id) {
-    self::validateResuorceName();
+    self::validateResourceName();
     $response = ApiClient::get(static::$resourceName . '/' . $id);
     $response_body = json_decode($response->getBody());
     return new static($response_body);
   }
 
-  private static function validateResuorceName() {
+  private static function validateResourceName() {
     if (static::$resourceName == null){
       throw new ArgumentError('You must declare resourceName', 1);
     }
   }
 
   public function save(){
-    self::validateResuorceName();
+    self::validateResourceName();
     if ($this->id) {
       $response = ApiClient::put(
         static::$resourceName . '/' . $this->id,
@@ -55,7 +55,7 @@ abstract class BaseObject {
   }
 
   public static function delete($id){
-    self::validateResuorceName();
+    self::validateResourceName();
     $response = ApiClient::delete(
       static::$resourceName . '/' . $id
     );

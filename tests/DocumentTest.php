@@ -131,4 +131,26 @@ class DocumentTest extends \PHPUnit_Framework_TestCase {
     Document::delete('some-id');
   }
 
+  public function testCreateEncrypted() {
+    $mockedBody = '{"id": "some-id", "encrypted": true, "signers":';
+    $mockedBody .= '[{ "pubs": [ "0246d04f5ee3a82a64822141e2c9177774d3fb1754e29af158a941005b6e453ef2", "034c81835ab30eb33aa248cc7712315d7dcaf4c870e09a4c9a840db516d391cead" ] }, ';
+    $mockedBody .= '{ "pubs": [ "0267619dbbed6a2ba4a8cb38ccfa862600a30c66e167cbc50529550b3c78d4873c" ] }]}';
+    $mockResponse = m::mock('\GuzzleHttp\Psr7\Response');
+    $mockResponse->shouldReceive('getBody')
+                 ->once()
+                 ->andReturn($mockedBody);
+
+    $document = new Document([
+      'encrypted' => true,
+      'file_path' => './tests/fixtures/example.pdf',
+    ]);
+
+    m::mock('alias:Mifiel\ApiClient')
+      ->shouldReceive([
+        'post' => $mockResponse,
+        'put' => new \GuzzleHttp\Psr7\Response,
+      ]);
+
+    $document->save();
+  }
 }

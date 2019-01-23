@@ -47,7 +47,10 @@ class PBE {
     return openssl_random_pseudo_bytes($size, $safe);
   }
 
-  public function getDerivedKey($password, $salt, $size) {
+  public function getDerivedKey($params) {
+    $size = empty($params['size']) ? 32 : $params['size'];
+    $salt = empty($params['salt']) ? '' : $params['salt'];
+    $password =  $params['password'];
     if ($size > 1000) {
       throw new \InvalidArgumentException('key lenght/size requested is too long');
     }
