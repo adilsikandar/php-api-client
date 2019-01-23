@@ -1,8 +1,8 @@
 <?php
 namespace Mifiel\Crypto;
 
-use FG\ASN1\Object as ASNObject,
-    FG\ASN1\Universal\Integer as ASNInteger,
+use FG\ASN1\Object,
+    FG\ASN1\Universal\ASNInteger,
     FG\ASN1\Universal\ObjectIdentifier,
     FG\ASN1\Universal\OctetString,
     FG\ASN1\Universal\Sequence,
@@ -81,7 +81,7 @@ class PKCS5 {
       $binary_data = hex2bin($binary_data);
     }
     try {
-      $asn_object = ASNObject::fromBinary($binary_data);
+      $asn_object = Object::fromBinary($binary_data);
       $this->validateLoadedASN1($asn_object);
       $asnL1 = $asn_object[0][1][0];
       $asnL2 = $asn_object[0][1][1];

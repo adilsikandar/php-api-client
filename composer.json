@@ -14,9 +14,8 @@
     "php": ">=5.5",
     "acquia/http-hmac-php": "^2.1",
     "guzzlehttp/guzzle": "~6.0",
-    "mdanter/ecc": "0.4.5",
     "simplito/elliptic-php": "^1.0",
-    "fgrosse/phpasn1": "^1.5"
+    "fgrosse/phpasn1": "dev-feature/hhvm-compatible"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.1",
@@ -44,5 +43,11 @@
       "name": "Genaro Madrid",
       "email": "genmadrid@gmail.com"
     }
-  ]
+  ],
+  "repositories": {
+    "fgrosse/phpasn1": {
+      "type": "vcs",
+      "url": "https://github.com/Mifiel/PHPASN1"
+    }
+  }
 }
