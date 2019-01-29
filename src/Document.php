@@ -3,7 +3,7 @@ namespace Mifiel;
 
 use Mifiel\Crypto\PBE,
     Mifiel\Crypto\AES,
-    Mifiel\Crypto\EC,
+    Mifiel\Crypto\ECIES,
     Mifiel\Crypto\PKCS5;
 
 class Document extends BaseObject {
@@ -84,11 +84,12 @@ class Document extends BaseObject {
   }
 
   private function cipherSecretForSigners($secret) {
-    $ec = new EC();
+    $ec = new ECIES();
     $signatories = [];
     foreach ($this->values->signers as $key => $signer) {
       $map_f = function($public_key) use(&$ec, &$secret) {
-        return $ec->encrypt($public_key, $secret);
+        $ec->setPublicKey($public_key);
+        return $ec->encrypt($secret);
       };
       $signatory_epwds = array_map($map_f ,$signer->pubs);
       array_push($signatories, ['id' => $signatory_epwds]);
