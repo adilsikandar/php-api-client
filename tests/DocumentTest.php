@@ -132,9 +132,10 @@ class DocumentTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testCreateEncrypted() {
-    $mockedBody = '{"id": "some-id", "encrypted": true, "signers":';
-    $mockedBody .= '[{ "pubs": [ "0246d04f5ee3a82a64822141e2c9177774d3fb1754e29af158a941005b6e453ef2", "034c81835ab30eb33aa248cc7712315d7dcaf4c870e09a4c9a840db516d391cead" ] }, ';
-    $mockedBody .= '{ "pubs": [ "0267619dbbed6a2ba4a8cb38ccfa862600a30c66e167cbc50529550b3c78d4873c" ] }]}';
+    $mockedBody = '{"id": "some-id", "signers":';
+    $mockedBody .= '[{ "id": "0ac0c4f7-d3e6-40c1-a079-a0e58db645e6", "e2ee": { "group": { "e_client": { "pub": "0246d04f5ee3a82a64822141e2c9177774d3fb1754e29af158a941005b6e453ef2" } } } },';
+    $mockedBody .= '{ "id": "ff946596-c4c4-4b89-9990-b50ef6ef7d07", "e2ee": { "group": { "e_client": { "pub": "034c81835ab30eb33aa248cc7712315d7dcaf4c870e09a4c9a840db516d391cead" } } } } ] }';
+
     $mockResponse = m::mock('\GuzzleHttp\Psr7\Response');
     $mockResponse->shouldReceive('getBody')
                  ->once()

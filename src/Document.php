@@ -11,15 +11,17 @@ class Document extends BaseObject {
   protected $multipart = true;
 
   public function save() {
+    $encrypted_tmp_flag = false;
     unset($this->values->file);
     if (isset($this->values->file_path)) {
       $this->prepareFileToBeStored();
     }
     if (isset($this->values->shared_secret)) {
+      $encrypted_tmp_flag = true;
       $shared_secret = $this->values->shared_secret;
     }
     parent::save();
-    if (isset($this->values->encrypted) && $this->values->encrypted) {
+    if ($encrypted_tmp_flag) {
       $this->cipherSecretForSigners($shared_secret);
     }
   }
@@ -71,28 +73,32 @@ class Document extends BaseObject {
   }
 
   private function prepareFileToBeStored() {
+    $filename = basename($this->file_path);
     if (empty($this->values->encrypted)) {
       $file_contents = fopen($this->file_path, 'r');
     } else {
+      $filename .= '.enc';
       $file_contents = $this->encryptFile();
     }
     $this->file = [
-      'filename' => basename($this->file_path),
+      'filename' => $filename,
       'contents' => $file_contents,
     ];
     unset($this->values->file_path);
   }
 
   private function cipherSecretForSigners($secret) {
-    $ec = new ECIES();
     $signatories = [];
-    foreach ($this->values->signers as $key => $signer) {
-      $map_f = function($public_key) use(&$ec, &$secret) {
-        $ec->setPublicKey($public_key);
-        return $ec->encrypt($secret);
-      };
-      $signatory_epwds = array_map($map_f ,$signer->pubs);
-      array_push($signatories, ['id' => $signatory_epwds]);
+    foreach ($this->values->signers as $signer) {
+      $ec = new ECIES();
+      $public_key = $signer->e2ee->group->e_client->pub;
+      $ec->setPublicKey($public_key);
+      $e_pass = $ec->encrypt($secret);
+      $signatories[$signer->id] = [
+        'e_client' => [
+          'e_pass' => $e_pass,
+        ],
+      ];
     }
     $this->values->signatories = $signatories;
     parent::save();
