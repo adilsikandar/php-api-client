@@ -62,7 +62,6 @@ class ECIESTest extends \PHPUnit_Framework_TestCase {
    * @expectedException InvalidArgumentException
    */
   public function testInvalidMacException() {
-    $ec = new ECIES();
     $ec = new ECIES([
       'iv' => '9b225e38a7b8534a31c5792f504a13a7',
       'ephemeral_public_key' => '047cd7ea12facf505add8b319f6da43fa59294eec219ebc99abbc7ac42f32142916f070476f91bc4c8431bebb3d43288f739fc8554fc778291137e918425497b83',

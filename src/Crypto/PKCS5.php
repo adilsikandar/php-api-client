@@ -122,6 +122,25 @@ class PKCS5 {
     return $seq->getBinary();
   }
 
+  public function decryptData($password) {
+    if (empty($password)) {
+      throw new \InvalidArgumentException('decryptData must be called with password arg.');
+    }
+    $key_size = $this->getKeySizeBytes();
+    $pbe = new PBE(['iterations' => $this->iterations]);
+    $derived_key = $pbe->getDerivedKey([
+      'password' => $password,
+      'salt' => $this->salt,
+      'size' => $key_size,
+    ]);
+    $aes = new AES(['block_size' => $key_size * 8]);
+    return $aes->decrypt([
+      'data' => $this->cipher_data,
+      'password' => hex2bin($derived_key),
+      'iv' => $this->iv,
+    ]);
+  }
+
   private function validateLoadedASN1($asn_object) {
     if ($asn_object instanceof UnknownObject) {
       throw new \Exception('Exception decoding bytes: Bytes are not PKCS5.');
