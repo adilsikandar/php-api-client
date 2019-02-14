@@ -3,6 +3,8 @@ namespace Mifiel\Tests;
 
 use Mifiel\ApiClient,
     Mifiel\Document,
+    BitWasp\Buffertools\Buffer as BitWaspBuffer,
+    BitWasp\Bitcoin\Key\Deterministic\HierarchicalKeyFactory,
     Mockery as m;
 
 /**
@@ -146,11 +148,15 @@ class DocumentTest extends \PHPUnit_Framework_TestCase {
       'file_path' => './tests/fixtures/example.pdf',
     ]);
 
-    m::mock('alias:Mifiel\ApiClient')
-      ->shouldReceive([
-        'post' => $mockResponse,
-        'put' => new \GuzzleHttp\Psr7\Response,
-      ]);
+    $seed = new BitWaspBuffer(hex2bin('000102030405060708090a0b0c0d0e0f'));
+    $mockMasterKey = HierarchicalKeyFactory::fromEntropy($seed);
+
+    $mock = m::mock('alias:Mifiel\ApiClient');
+    $mock->shouldReceive([
+      'post' => $mockResponse,
+      'put' => new \GuzzleHttp\Psr7\Response,
+      'masterKey' => $mockMasterKey,
+    ]);
 
     $document->save();
   }

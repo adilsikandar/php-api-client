@@ -48,6 +48,9 @@ class Document extends BaseObject {
   }
 
   private function encryptFile() {
+    if (empty(ApiClient::masterKey())) {
+      throw new \Exception('Master key is needed to create encrypted documents. ApiClient::setMasterKey($seed_as_hex_string)');
+    }
     $aes = new AES(['block_size' => 256]);
     $pbe = new PBE(['iterations' => 1000]);
     $salt = PBE::randomSalt();
@@ -88,6 +91,7 @@ class Document extends BaseObject {
   }
 
   private function cipherSecretForSigners($secret) {
+    // $this->signerKeyDerivation($doc, $signer);
     $signatories = [];
     foreach ($this->values->signers as $signer) {
       $ec = new ECIES();
@@ -102,5 +106,11 @@ class Document extends BaseObject {
     }
     $this->values->signatories = $signatories;
     parent::save();
+  }
+
+  private function signerKeyDerivation($doc, $signer) {
+    $node = ApiClient::masterKey()->derivePath("{$doc}H/{$signer}");
+    $node_pub = $node->getPublicKey();
+    return $node_pub->getHex();
   }
 }

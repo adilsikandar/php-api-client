@@ -3,9 +3,11 @@ namespace Mifiel;
 
 use GuzzleHttp\Psr7\Request,
     Acquia\Hmac\Guzzle\HmacAuthMiddleware,
-    Acquia\Hmac\RequestSigner,
     GuzzleHttp\Client,
     GuzzleHttp\HandlerStack,
+    Acquia\Hmac\RequestSigner,
+    BitWasp\Buffertools\Buffer as BitWaspBuffer,
+    BitWasp\Bitcoin\Key\Deterministic\HierarchicalKeyFactory,
     Mifiel\Digest\ApiAuthGemDigest;
 
 class ApiClient {
@@ -14,12 +16,18 @@ class ApiClient {
   private static $appSecret;
   private static $client;
   private static $url;
+  private static $masterKey;
 
   public static function setTokens($appId, $appSecret) {
     self::$appId = $appId;
     self::$appSecret = $appSecret;
     self::$url = 'https://www.mifiel.com/api/v1/';
     self::setClient();
+  }
+
+  public static function setMasterKey($seed) {
+    $seed = new BitWaspBuffer(hex2bin($seed));
+    self::$masterKey = HierarchicalKeyFactory::fromEntropy($seed);
   }
 
   public static function get($path, $params=array()) {
@@ -110,6 +118,10 @@ class ApiClient {
       return;
     }
     return self::$appSecret;
+  }
+
+  public static function masterKey() {
+    return self::$masterKey;
   }
 
   private static function setClient() {
