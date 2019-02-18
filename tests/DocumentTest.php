@@ -135,8 +135,8 @@ class DocumentTest extends \PHPUnit_Framework_TestCase {
 
   public function testCreateEncrypted() {
     $mockedBody = '{"id": "some-id", "signers":';
-    $mockedBody .= '[{ "id": "0ac0c4f7-d3e6-40c1-a079-a0e58db645e6", "e2ee": { "group": { "e_client": { "pub": "0246d04f5ee3a82a64822141e2c9177774d3fb1754e29af158a941005b6e453ef2" } } } },';
-    $mockedBody .= '{ "id": "ff946596-c4c4-4b89-9990-b50ef6ef7d07", "e2ee": { "group": { "e_client": { "pub": "034c81835ab30eb33aa248cc7712315d7dcaf4c870e09a4c9a840db516d391cead" } } } } ] }';
+    $mockedBody .= '[{ "id": "0ac0c4f7-d3e6-40c1-a079-a0e58db645e6", "e2ee": { "e_index": "32\'/0", "group": { "e_client": { "e_pass": null } } } },';
+    $mockedBody .= '{ "id": "ff946596-c4c4-4b89-9990-b50ef6ef7d07", "e2ee": { "e_index": "32\'/1", "group": { "e_client": { "e_pass": null } } } } ] }';
 
     $mockResponse = m::mock('\GuzzleHttp\Psr7\Response');
     $mockResponse->shouldReceive('getBody')

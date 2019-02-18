@@ -91,11 +91,11 @@ class Document extends BaseObject {
   }
 
   private function cipherSecretForSigners($secret) {
-    // $this->signerKeyDerivation($doc, $signer);
     $signatories = [];
     foreach ($this->values->signers as $signer) {
       $ec = new ECIES();
-      $public_key = $signer->e2ee->group->e_client->pub;
+      $key_path = explode('/', $signer->e2ee->e_index);
+      $public_key = $this->signerKeyDerivation($key_path[0], $key_path[1]);
       $ec->setPublicKey($public_key);
       $e_pass = $ec->encrypt($secret);
       $signatories[$signer->id] = [
@@ -109,8 +109,15 @@ class Document extends BaseObject {
   }
 
   private function signerKeyDerivation($doc, $signer) {
-    $node = ApiClient::masterKey()->derivePath("{$doc}H/{$signer}");
+    $node = ApiClient::masterKey()->derivePath("{$doc}/{$signer}");
     $node_pub = $node->getPublicKey();
     return $node_pub->getHex();
+  }
+
+  private function signerKeyDerivationFromWidgetId($widget_id) {
+    $widget_map = explode('-', $widget_id);
+    $signer = array_pop($widget_map);
+    $doc = array_pop($widget_map);
+    return $this->signerKeyDerivation($doc, $signer);
   }
 }
