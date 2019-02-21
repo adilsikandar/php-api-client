@@ -76,12 +76,14 @@ class Document extends BaseObject {
   }
 
   private function prepareFileToBeStored() {
+    $filehash = null;
     $filename = basename($this->file_path);
     if (empty($this->values->encrypted)) {
       $file_contents = fopen($this->file_path, 'r');
     } else {
       $filename .= '.enc';
       $file_contents = $this->encryptFile();
+      $this->original_hash = hash('sha256', file_get_contents($this->values->file_path));
     }
     $this->file = [
       'filename' => $filename,

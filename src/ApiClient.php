@@ -18,11 +18,14 @@ class ApiClient {
   private static $url;
   private static $masterKey;
 
-  public static function setTokens($appId, $appSecret) {
+  public static function setTokens($appId, $appSecret, $masterKey=null) {
     self::$appId = $appId;
     self::$appSecret = $appSecret;
     self::$url = 'https://www.mifiel.com/api/v1/';
     self::setClient();
+    if ($masterKey) {
+      self::setMasterKey($masterKey);
+    }
   }
 
   public static function setMasterKey($seed) {
